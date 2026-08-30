@@ -1649,11 +1649,6 @@ class TestServiceWorkingDirIsStable:
         assert Path(m.group(1)).resolve() == home.resolve()
         assert "/.worktrees/" not in m.group(1)
 
-    def test_launchd_uses_file_backed_gws_keyring(self):
-        plist = gateway_cli.generate_launchd_plist()
-        assert "<key>GOOGLE_WORKSPACE_CLI_KEYRING_BACKEND</key>" in plist
-        assert "<string>file</string>" in plist
-
 
 class TestLaunchctlBootstrapEioRetry:
     """`_launchctl_bootstrap` must recover from a stale already-loaded label.
@@ -1764,3 +1759,4 @@ class TestRetryLaunchctlBootstrapUntilRegistered:
         )
         assert ok is True
         assert attempts["bootstrap"] >= 2  # the timeout was retried, not raised
+

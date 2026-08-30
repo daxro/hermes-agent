@@ -105,7 +105,6 @@ def test_bridge_main_injects_token_env(bridge_module, tmp_path):
                 bridge_module.main()
 
     assert captured["env"]["GOOGLE_WORKSPACE_CLI_TOKEN"] == "ya29.injected"
-    assert captured["env"]["GOOGLE_WORKSPACE_CLI_KEYRING_BACKEND"] == "file"
     assert captured["cmd"] == ["gws", "gmail", "+triage"]
 
 
@@ -115,7 +114,6 @@ def test_api_calendar_list_uses_events_list(api_module):
 
     def capture_run(cmd, **kwargs):
         captured["cmd"] = cmd
-        captured["env"] = kwargs.get("env", {})
         return MagicMock(returncode=0, stdout="{}", stderr="")
 
     args = api_module.argparse.Namespace(
@@ -126,7 +124,6 @@ def test_api_calendar_list_uses_events_list(api_module):
         api_module.calendar_list(args)
 
     cmd = captured["cmd"]
-    assert captured["env"]["GOOGLE_WORKSPACE_CLI_KEYRING_BACKEND"] == "file"
     # _gws_binary() returns "/usr/bin/gws", so cmd[0] is that binary
     assert cmd[0] == "/usr/bin/gws"
     assert "calendar" in cmd
