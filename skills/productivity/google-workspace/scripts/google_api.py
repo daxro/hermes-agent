@@ -89,6 +89,9 @@ def _gws_binary() -> str | None:
 def _gws_env() -> dict[str, str]:
     env = os.environ.copy()
     env["GOOGLE_WORKSPACE_CLI_CREDENTIALS_FILE"] = str(TOKEN_PATH)
+    # Native macOS Keychain access can block unattended gateway commands.
+    # gws credentials are encrypted with its file-backed key for this flow.
+    env["GOOGLE_WORKSPACE_CLI_KEYRING_BACKEND"] = "file"
     return env
 
 

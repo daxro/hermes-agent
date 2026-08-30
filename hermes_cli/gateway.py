@@ -4119,6 +4119,8 @@ def generate_launchd_plist() -> str:
         <string>{venv_dir}</string>
         <key>HERMES_HOME</key>
         <string>{hermes_home}</string>
+        <key>GOOGLE_WORKSPACE_CLI_KEYRING_BACKEND</key>
+        <string>file</string>
     </dict>
 
     <key>LimitLoadToSessionType</key>
